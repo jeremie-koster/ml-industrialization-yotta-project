@@ -1,3 +1,3 @@
-# chaos-2
+# chaos
 
-Devops project - group 2 (Jérémie Koster et Olivier Collier)
+Original code base to start from

@@ -1,0 +1,26 @@
+image: docker:latest
+services:
+  - docker:dind
+
+
+stages:
+  - build
+  - test
+
+build-docker-image:
+  stage: build
+  variables:
+    IMAGE_NAME: eu.gcr.io/yotta-ml3/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH
+  script:
+  - echo "$GITLAB_IAM_PRIVATE_KEY" > key.json
+  - docker build . -t $IMAGE_NAME
+  - docker login -u _json_key -p "$(cat key.json)" $IMAGE_NAME
+  - docker push $IMAGE_NAME
+
+unit-test:
+  image: python:3.8.1
+  stage: test
+  script: 
+    - pip install -r requirements.txt
+    - pip install -e .
+    - pytest chaos/test/unit
