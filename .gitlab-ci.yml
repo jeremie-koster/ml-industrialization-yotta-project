@@ -6,6 +6,7 @@ services:
 stages:
   - build
   - test
+  - deploy
 
 build-docker-image:
   stage: build
@@ -24,3 +25,11 @@ unit-test:
     - pip install -r requirements.txt
     - pip install -e .
     - pytest chaos/test/unit
+
+deployment:
+  stage: deploy
+  script:
+    - kubectl apply -f deployment/deployment.yml
+    - kubectl apply -f deployment/load-balancer.yml
+  only:
+    - commit
