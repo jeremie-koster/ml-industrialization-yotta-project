@@ -27,6 +27,7 @@ unit-test:
     - pytest chaos/test/unit
 
 deployment:
+  image: google/cloud-sdk:latest
   stage: deploy
   script:
     - kubectl apply -f deployment/deployment.yml
