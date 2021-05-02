@@ -3,6 +3,8 @@ FROM python:3.8.1
 COPY . /chaos
 WORKDIR /chaos
 
+ENV YOTTA_ML3_CONFIGURATION_PATH=/secret/config.yml
+
 RUN apt-get update
 
 RUN pip install -r requirements.txt
