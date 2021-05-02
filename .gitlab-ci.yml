@@ -4,8 +4,8 @@ services:
 
 
 stages:
-  - build
   - test
+  - build
   - deploy
 
 build-docker-image:
@@ -32,4 +32,4 @@ deployment:
     - kubectl apply -f deployment/deployment.yml
     - kubectl apply -f deployment/load-balancer.yml
   only:
-    - commit
+    - pushes
