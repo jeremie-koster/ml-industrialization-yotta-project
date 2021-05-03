@@ -30,6 +30,11 @@ deployment:
   image: google/cloud-sdk:latest
   stage: deploy
   script:
+    - echo "$GITLAB_IAM_PRIVATE_KEY" > key.json
+    - gcloud auth activate-service-account --key-file=key.json
+    - gcloud config set project yotta-san-ml3
+    - gcloud config set compute/zone europe-west1-b
+    - gcloud container clusters get-credentials chaos-cluster
     - kubectl apply -f deployment/deployment.yml
     - kubectl apply -f deployment/load-balancer.yml
   only:
