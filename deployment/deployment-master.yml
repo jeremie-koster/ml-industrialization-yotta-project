@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata: 
-  name: chaos-2-deployment
+  name: chaos-2-master
 spec:
   replicas: 2
   selector:
