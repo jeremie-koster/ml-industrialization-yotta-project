@@ -8,6 +8,9 @@ app = Flask(__name__)
 PORT = config["api"]["port"]
 HOST = config["api"]["host"]
 
+class Prediction(BaseModel):
+    predictions: str
+
 
 @app.route("/example", methods=["GET"])
 def example():
@@ -19,6 +22,19 @@ def example():
         answer = DEFAULT_RESPONSE
     response = {"answer": answer}
     return jsonify(response)
+
+
+
+@app.post("/predict", response_model=Prediction)
+def prediction(input: dict):
+
+    balance = input.get("BALANCE")
+
+    if not isinstance(balance, float):
+        balance = float(balance)
+    
+    
+    return {"predictions": balance*2}
 
 
 if __name__ == "__main__":
