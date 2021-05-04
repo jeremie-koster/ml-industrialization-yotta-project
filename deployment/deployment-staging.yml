@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: chaos2
-          image: eu.gcr.io/yotta-san-ml3/chaos-2:develop
+          image: eu.gcr.io/yotta-san-ml3/chaos-2:staging
           imagePullPolicy: Always
           volumeMounts:
             - name: secret-vol

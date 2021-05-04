@@ -41,6 +41,6 @@ deployment:
     - kubectl apply -f deployment/deployment-$CI_COMMIT_BRANCH.yml
     - kubectl apply -f deployment/load-balancer.yml
   only:
-    - pushes
+    # - pushes
     - staging
     - master
