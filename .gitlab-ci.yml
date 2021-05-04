@@ -8,6 +8,17 @@ stages:
   - build
   - deploy
 
+unit-test:
+  image: python:3.8.1
+  stage: test
+  script: 
+    - pip install -r requirements.txt
+    - pip install -e .
+    - pytest chaos/test/unit
+  only:
+    - develop
+    - staging
+
 build-docker-image:
   stage: build
   variables:
@@ -18,14 +29,6 @@ build-docker-image:
   - docker login -u _json_key -p "$(cat key.json)" $IMAGE_NAME
   - docker push $IMAGE_NAME
 
-unit-test:
-  image: python:3.8.1
-  stage: test
-  script: 
-    - pip install -r requirements.txt
-    - pip install -e .
-    - pytest chaos/test/unit
-
 deployment:
   image: google/cloud-sdk:latest
   stage: deploy
@@ -35,7 +38,9 @@ deployment:
     - gcloud config set project yotta-san-ml3
     - gcloud config set compute/zone europe-west1-b
     - gcloud container clusters get-credentials chaos-cluster
-    - kubectl apply -f deployment/deployment.yml
+    - kubectl apply -f deployment/deployment-$CI_COMMIT_BRANCH.yml
     - kubectl apply -f deployment/load-balancer.yml
   only:
     - pushes
+    - staging
+    - master

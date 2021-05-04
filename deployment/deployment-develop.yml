@@ -15,7 +15,6 @@ spec:
       containers:
         - name: chaos2
           image: eu.gcr.io/yotta-san-ml3/chaos-2:develop
-          # image: eu.gcr.io/yotta-san-ml3/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH
           imagePullPolicy: Always
           volumeMounts:
             - name: secret-vol
