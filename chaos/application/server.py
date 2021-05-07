@@ -1,10 +1,15 @@
 import datetime
 from flask import Flask, jsonify, request
+from pydantic import BaseModel
+from fastapi import FastAPI
+import uvicorn
 
 from chaos.infrastructure.config.config import config
 
 
-app = Flask(__name__)
+# app = Flask(__name__)
+app = FastAPI()
+
 PORT = config["api"]["port"]
 HOST = config["api"]["host"]
 
@@ -12,31 +17,35 @@ class Prediction(BaseModel):
     predictions: str
 
 
-@app.route("/example", methods=["GET"])
-def example():
+@app.post("/example")
+def example(input: dict):
+    
     try:
-        initial_number = request.get_json()["question"]
+        initial_number = input.get("question")
         answer = float(initial_number)*2
     except (ValueError, TypeError, KeyError):
         DEFAULT_RESPONSE = 0
         answer = DEFAULT_RESPONSE
     response = {"answer": answer}
-    return jsonify(response)
+    return response
 
 
-
-@app.post("/predict", response_model=Prediction)
+@app.post("/predict")
 def prediction(input: dict):
 
-    balance = input.get("BALANCE")
-
-    if not isinstance(balance, float):
-        balance = float(balance)
+    try:
+        balance = input.get("balance")
+        answer = float(balance)*2
+    except (ValueError, TypeError, KeyError):
+        DEFAULT_RESPONSE = 0
+        answer = DEFAULT_RESPONSE
     
-    
-    return {"predictions": balance*2}
+    return {"predictions": answer}
 
+@app.get("/")
+def index():
+    return {"message": "Oui bonjour ça marche"}
 
 if __name__ == "__main__":
     print("starting API at", datetime.datetime.now())
-    app.run(debug=False, host=HOST, port=PORT)
+    uvicorn.run("chaos.application.server:app", host=HOST, port=PORT)
