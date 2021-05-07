@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 import uvicorn
 
-from src.infrastructure.config.config import config
+from src.config.config import config
 
 
 # app = Flask(__name__)
