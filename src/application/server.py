@@ -4,7 +4,7 @@ from pydantic import BaseModel
 from fastapi import FastAPI
 import uvicorn
 
-from chaos.infrastructure.config.config import config
+from src.infrastructure.config.config import config
 
 
 # app = Flask(__name__)
@@ -48,4 +48,4 @@ def index():
 
 if __name__ == "__main__":
     print("starting API at", datetime.datetime.now())
-    uvicorn.run("chaos.application.server:app", host=HOST, port=PORT)
+    uvicorn.run("src.application.server:app", host=HOST, port=PORT)

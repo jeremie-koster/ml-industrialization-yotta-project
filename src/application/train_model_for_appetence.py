@@ -1,4 +1,4 @@
-# PURPOSE: dump the (stupid) model predicting the appetence score of a customer as a pickle file. If run, the model will train and will be saves in chaos/domain/model.pkl
+# PURPOSE: dump the (stupid) model predicting the appetence score of a customer as a pickle file. If run, the model will train and will be saves in src/domain/model.pkl
 # EXPLANATION: this file should not be used. It's just the source code of the pickle model for your information
 
 import os
@@ -7,7 +7,7 @@ import pickle
 import numpy as np
 from sklearn.ensemble import RandomForestClassifier
 
-import chaos
+import src
 
 
 def train_model():
@@ -32,6 +32,6 @@ def dump_model(model, filename: str):
 
 if __name__ == "__main__":
     model = train_model()
-    DESTINATION_FOLDER = os.path.join(chaos.__path__[0], "domain")
+    DESTINATION_FOLDER = os.path.join(src.__path__[0], "domain")
     FILENAME = os.path.join(DESTINATION_FOLDER, "model.pkl")
     dump_model(model, FILENAME)

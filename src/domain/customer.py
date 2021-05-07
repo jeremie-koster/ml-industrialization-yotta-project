@@ -3,7 +3,7 @@ import pickle
 
 import numpy as np
 
-from chaos.infrastructure.socio_eco import SocioEco
+from src.infrastructure.socio_eco import SocioEco
 
 this_dir = os.path.dirname(os.path.realpath(__file__))
 
