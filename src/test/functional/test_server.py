@@ -1,6 +1,6 @@
 import requests
 
-from chaos.infrastructure.config.config import config
+from src.infrastructure.config.config import config
 
 api = config["api"]
 host = api["host"]

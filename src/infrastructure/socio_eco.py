@@ -1,6 +1,6 @@
 import pandas as pd
 
-from chaos.infrastructure.connexion import Connexion
+from src.infrastructure.connexion import Connexion
 
 
 engine = Connexion().connect()

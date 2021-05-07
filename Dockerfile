@@ -1,7 +1,7 @@
 FROM python:3.8.1
 
-COPY . /chaos
-WORKDIR /chaos
+COPY . /src
+WORKDIR /src
 
 ENV YOTTA_ML3_CONFIGURATION_PATH=/secret/config.yml
 
@@ -14,4 +14,4 @@ RUN pip install -e ./
 ENV FLASK_PORT=5000
 EXPOSE ${FLASK_PORT}
 
-CMD ["gunicorn", "chaos.application.server:app", "-b", "0.0.0.0:5000"]
+CMD ["gunicorn", "src.application.server:app", "-b", "0.0.0.0:5000"]
