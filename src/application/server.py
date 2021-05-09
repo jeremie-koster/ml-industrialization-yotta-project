@@ -3,13 +3,11 @@ import datetime
 import pandas as pd
 import uvicorn
 from fastapi import FastAPI
-from flask import Flask, jsonify, request
 from pydantic import BaseModel
 
 from src.application.predict import main as prediction_pipeline
 from src.config.config import config
 
-# app = Flask(__name__)
 app = FastAPI()
 
 PORT = config["api"]["port"]
@@ -20,7 +18,7 @@ class Prediction(BaseModel):
     predictions: str
 
 
-@app.post("/example")
+@app.get("/example")
 def example(input: dict):
 
     try:

@@ -11,7 +11,7 @@ RUN pip install -r requirements.txt
 RUN pip install -e ./
 
 
-ENV FLASK_PORT=5000
-EXPOSE ${FLASK_PORT}
+ENV API_PORT=5000
+EXPOSE ${API_PORT}
 
-CMD ["gunicorn", "src.application.server:app", "-b", "0.0.0.0:5000"]
+CMD ["python", "src/application/server.py"]
