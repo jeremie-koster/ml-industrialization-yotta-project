@@ -44,6 +44,7 @@ def prediction(input: dict):
 
 @app.get("/")
 def index():
+
     return {"message": "Oui bonjour ça marche"}
 
 
