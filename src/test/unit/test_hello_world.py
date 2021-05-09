@@ -1,5 +1,5 @@
 import os
-import src.config.base as base
+from src.config.base import MODELS_DIR
 
 
 def test_street_fighter():
@@ -7,7 +7,7 @@ def test_street_fighter():
 
 
 def test_model_file_exists():
-    model = os.path.join(base.MODELS_DIR, "ml_model.pkl")
+    model = os.path.join(MODELS_DIR, "ml_model.pkl")
     assert os.path.isfile(model)
 
 
