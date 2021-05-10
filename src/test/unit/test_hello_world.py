@@ -11,6 +11,9 @@ def test_model_file_exists():
     model = os.path.join(base.REPO_DIR, "models/ml_model.pkl")
     assert os.path.isfile(model)
 
+def test_dummy():
+    assert True == False
+
 
 def test_clip_transformer():
     data = pd.DataFrame(5 + np.random.randn(10))
