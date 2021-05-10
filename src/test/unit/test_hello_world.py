@@ -11,8 +11,49 @@ def test_model_file_exists():
     model = os.path.join(base.REPO_DIR, "models/ml_model.pkl")
     assert os.path.isfile(model)
 
-def test_dummy():
-    assert True == False
+
+def test_clip_transformer():
+    data = 5 + np.random.randn(100)
+    a_min = 0
+    a_max = 6
+    transformer = ClipTransformer(a_min, a_max)
+    transformed_data = transformer.fit_transform(data)
+    assert all(transformed_data >= a_min / (a_max - a_min)) & all(transformed_data <= a_max / (a_max - a_min))
+
+
+def test_extract_category_transformer():
+    data = np.array(['a'] * 5 + ['b'] * 4 + ['c'] * 3)
+    transformer = ExtractCategoryTransformer()
+    transformed_data = transformer.fit_transform(data)
+    assert all(transformed_data == data.mode()[0])
+
+
+def test_age_transformer1():
+    data = 40 + 5 * np.random.randn(100)
+    transformer = AgeTransformer()
+    transformed_data = transformer.fit_transform(data)
+    assert all([x in [0, 1] for x in transformed_data[0, :]])
+
+
+def test_age_transformer2():
+    data = 40 + 5 * np.random.randn(100)
+    transformer = AgeTransformer()
+    transformed_data = transformer.fit_transform(data)
+    assert all([x in [0, 1] for x in transformed_data[1, :]])
+
+
+def test_age_transformer3():
+    data = 40 + 5 * np.random.randn(100)
+    transformer = AgeTransformer()
+    transformed_data = transformer.fit_transform(data)
+    assert np.isclose((np.mean(transformed_data[2, :]), 0, 1e-5)) & np.isclose(np.std(transformed_data[2, :]), 1, 1e-5)
+
+
+def test_logical_transformer():
+    data = np.random.randint(0, 2, (100, 2))
+    transformer = LogicalOrTransformer()
+    transformed_data = transformer.fit_transform(data)
+    assert all([x in [0, 1] for x in transformed_data])
 
 
 def test_clip_transformer():
