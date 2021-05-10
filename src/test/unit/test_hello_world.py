@@ -54,7 +54,20 @@ def test_logical_transformer():
     data = np.random.randint(0, 2, (100, 2))
     transformer = LogicalOrTransformer()
     transformed_data = transformer.fit_transform(data)
-    assert assert all([x in [0, 1] for x in transformed_data])
+    assert all([x in [0, 1] for x in transformed_data])
+
+
+def test_impute_missing_eco_data():
+    data = [np.nan, 1, 2, np.nan, 4, np.nan]
+    transformed_data = impute_missing_eco_data(data)
+    assert not any(transformed_data.isnull())
+
+
+def test_correct_wrong_entries():
+    data = np.arange(10)
+    corrections = {0: 'a', 1: 'b'}
+    transformed_data = correct_wrong_entries(data, corrections)
+    assert all(transformed_data not in list(corrections.keys())
 
 
 if __name__ == "__main__":
