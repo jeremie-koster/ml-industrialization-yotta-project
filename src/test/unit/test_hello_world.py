@@ -70,5 +70,5 @@ def test_correct_wrong_entries():
     assert all(transformed_data not in list(corrections.keys())
 
 
-if __name__ == "__main__":
-    test_model_file_exists()
+#if __name__ == "__main__":
+#    test_model_file_exists()
