@@ -68,7 +68,3 @@ def test_correct_wrong_entries():
     corrections = {0: 'a', 1: 'b'}
     transformed_data = correct_wrong_entries(data, corrections)
     assert all(transformed_data not in list(corrections.keys())
-
-
-#if __name__ == "__main__":
-#    test_model_file_exists()
