@@ -216,8 +216,3 @@ def test_correct_wrong_entries():
     transformed_data = cl.correct_wrong_entries(data, corrections)
     assert all(transformed_data not in list(corrections.keys()))
 
-
-def test_impute_missing_eco_data():
-    data = pd.DataFrame([np.nan, 1, 2, np.nan, 4, np.nan])
-    transformed_data = cl.impute_missing_eco_data(data)
-    assert not any(transformed_data.isnull())
