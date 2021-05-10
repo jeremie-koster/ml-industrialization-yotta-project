@@ -205,6 +205,19 @@ def test_logical_transformer():
 
 
 def test_impute_missing_eco_data():
+    data = [np.nan, 1, 2, np.nan, 4, np.nan]
+    transformed_data = cl.mpute_missing_eco_data(data)
+    assert not any(transformed_data.isnull())
+
+
+def test_correct_wrong_entries():
+    data = np.arange(10)
+    corrections = {0: 'a', 1: 'b'}
+    transformed_data = cl.correct_wrong_entries(data, corrections)
+    assert all(transformed_data not in list(corrections.keys()))
+
+
+def test_impute_missing_eco_data():
     data = pd.DataFrame([np.nan, 1, 2, np.nan, 4, np.nan])
     transformed_data = cl.impute_missing_eco_data(data)
     assert not any(transformed_data.isnull())
