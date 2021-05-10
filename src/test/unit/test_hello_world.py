@@ -67,4 +67,4 @@ def test_correct_wrong_entries():
     data = np.arange(10)
     corrections = {0: 'a', 1: 'b'}
     transformed_data = correct_wrong_entries(data, corrections)
-    assert all(transformed_data not in list(corrections.keys())
+    assert all(transformed_data not in list(corrections.keys()))
