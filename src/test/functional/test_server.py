@@ -1,10 +1,6 @@
-from src.config.config import config
 from src.application.server import app
 
 from fastapi.testclient import TestClient
-
-PORT = config["api"]["port"]
-HOST = config["api"]["host"]
 
 client = TestClient(app)
 
