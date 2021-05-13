@@ -1,6 +1,6 @@
 .DS_Store
 Pipfile*
-config.yml
+# config.yml
 .vscode
 Icon?
 
@@ -113,3 +113,5 @@ venv.bak/
 *~
 
 config_template.yml
+
+data/predictions/predictions.csv
