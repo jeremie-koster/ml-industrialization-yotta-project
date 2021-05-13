@@ -1,0 +1,29 @@
+api:
+    port: 5000
+    host: 0.0.0.0
+
+
+subscription:
+  name: 'data.csv'
+  date_format: '%Y-%m-%d'
+  date_column: 'DATE'
+  sep: ','
+  cast_types:
+    'DATE': datetime64
+    'AGE': int64
+    'BALANCE': 'float64'
+  wrong_entries:
+    'AGE': 123
+  filters:
+    'missing': ['AGE','JOB_TYPE']
+
+
+economic_info:
+  name: 'socio_eco.csv'
+  date_format: '%Y-%m-%d'
+  date_column: 'DATE'
+  sep: ';'
+  cast_types:
+    'DATE': datetime64
+  filters:
+    'missing': []
