@@ -25,7 +25,7 @@ def test_predict():
         "NB_CONTACT_LAST_CAMPAIGN": 5,
         "RESULT_LAST_CAMPAIGN": "Echec",
     }
-    response = client.post(f"/{endpoint}", json=data, headers=headers)
+    response = client.get(f"/{endpoint}", json=data, headers=headers)
     results = response.json()
     assert results["predictions"] == "A souscrit"
 
