@@ -31,7 +31,7 @@ def example(input: dict):
     return response
 
 
-@app.post("/predict", response_model=Prediction)
+@app.get("/predict", response_model=Prediction)
 def prediction(input: dict):
 
     input_df = pd.DataFrame(input, index=[0])
