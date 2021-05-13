@@ -11,7 +11,7 @@ stages:
 unit-test:
   image: python:3.8.1
   stage: test
-  script: 
+  script:
     - pip install -r requirements.txt
     - pip install -e .
     - pytest src/test/unit
@@ -52,6 +52,5 @@ deployment:
     - kubectl apply -f deployment/deployment-$CI_COMMIT_BRANCH.yml
     - kubectl apply -f deployment/load-balancer.yml
   only:
-    # - pushes
     - staging
     - master
