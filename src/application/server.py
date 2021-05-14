@@ -6,12 +6,8 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 
 from src.application.predict import main as prediction_pipeline
-from src.config.config import config
 
 app = FastAPI()
-
-PORT = config["api"]["port"]
-HOST = config["api"]["host"]
 
 
 class Prediction(BaseModel):
@@ -49,5 +45,10 @@ def index():
 
 
 if __name__ == "__main__":
+    from src.config.config import config
+
+    PORT = config["api"]["port"]
+    HOST = config["api"]["host"]
+
     print("starting API at", datetime.datetime.now())
     uvicorn.run("src.application.server:app", host=HOST, port=PORT)
