@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chaos-2-staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chaos2-api
+  template:
+    metadata:
+      labels:
+        app: chaos2-api
+    spec:
+      containers:
+        - name: chaos2
+          image: eu.gcr.io/yotta-san-ml3/chaos-2:staging
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: secret-vol
+              mountPath: "/secret"
+              readOnly: True
+      volumes:
+        - name: secret-vol
+          secret:
+            secretName: chaos-secrets-2
