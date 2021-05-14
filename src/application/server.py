@@ -31,7 +31,7 @@ def example(input: dict):
     return response
 
 
-@app.get("/predict", response_model=Prediction)
+@app.post("/predict", response_model=Prediction)
 def prediction(input: dict):
 
     try:
