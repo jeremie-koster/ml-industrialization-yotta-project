@@ -1,0 +1,8 @@
+config.yml
+.git
+.cache
+.vscode
+*.egg-info
+__pycache__
+
+config_template.yml

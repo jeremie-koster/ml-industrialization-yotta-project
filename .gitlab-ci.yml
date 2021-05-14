@@ -1,0 +1,56 @@
+image: docker:latest
+services:
+  - docker:dind
+
+
+stages:
+  - test
+  - build
+  - deploy
+
+unit-test:
+  image: python:3.8.1
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - pip install -e .
+    - pytest src/test/unit
+  only:
+    - develop
+    - staging
+
+functional-test:
+  image: python:3.8.1
+  stage: test
+  script:
+    - pip install -r requirements.txt
+    - pip install -e .
+    - pytest src/test/functional
+  only:
+    - develop
+    - staging
+
+build-docker-image:
+  stage: build
+  variables:
+    IMAGE_NAME: eu.gcr.io/yotta-san-ml3/$CI_PROJECT_NAME:$CI_COMMIT_BRANCH
+  script:
+  - echo "$GITLAB_IAM_PRIVATE_KEY" > key.json
+  - docker build . -t $IMAGE_NAME
+  - docker login -u _json_key -p "$(cat key.json)" $IMAGE_NAME
+  - docker push $IMAGE_NAME
+
+deployment:
+  image: google/cloud-sdk:latest
+  stage: deploy
+  script:
+    - echo "$GITLAB_IAM_PRIVATE_KEY" > key.json
+    - gcloud auth activate-service-account --key-file=key.json
+    - gcloud config set project yotta-san-ml3
+    - gcloud config set compute/zone europe-west1-b
+    - gcloud container clusters get-credentials chaos-cluster
+    - kubectl apply -f deployment/deployment-$CI_COMMIT_BRANCH.yml
+    - kubectl apply -f deployment/load-balancer.yml
+  only:
+    - staging
+    - master
