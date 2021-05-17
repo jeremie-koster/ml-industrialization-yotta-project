@@ -69,13 +69,6 @@ def test_impute_missing_eco_data():
     assert not any(transformed_data.isnull())
 
 
-def test_correct_wrong_entries():
-    data = np.arange(10)
-    corrections = {0: "a", 1: "b"}
-    transformed_data = correct_wrong_entries(data, corrections)
-    assert all(transformed_data not in list(corrections.keys()))
-
-
 def test_clip_transformer():
     data = pd.DataFrame(5 + np.random.randn(10))
     a_min = 0
