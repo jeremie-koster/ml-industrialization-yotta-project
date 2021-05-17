@@ -1,5 +1,4 @@
 from src.application.predict import main as prediction_pipeline
-from src.config.config import config
 
 import datetime
 from fastapi import FastAPI
@@ -14,9 +13,6 @@ sentry_sdk.init(
 )
 
 app = FastAPI()
-
-PORT = config["api"]["port"]
-HOST = config["api"]["host"]
 
 
 class Prediction(BaseModel):
@@ -59,7 +55,7 @@ def index():
 
 
 if __name__ == "__main__":
-    from src.config.config import api_config
+    from src.config.api_config import api_config
 
     PORT = api_config["api"]["port"]
     HOST = api_config["api"]["host"]
