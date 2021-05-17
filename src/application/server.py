@@ -45,10 +45,10 @@ def index():
 
 
 if __name__ == "__main__":
-    from src.config.config import config
+    from src.config.config import api_config
 
-    PORT = config["api"]["port"]
-    HOST = config["api"]["host"]
+    PORT = api_config["api"]["port"]
+    HOST = api_config["api"]["host"]
 
     print("starting API at", datetime.datetime.now())
     uvicorn.run("src.application.server:app", host=HOST, port=PORT)
