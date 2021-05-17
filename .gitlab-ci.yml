@@ -50,7 +50,7 @@ deployment:
     - gcloud config set compute/zone europe-west1-b
     - gcloud container clusters get-credentials chaos-cluster
     - kubectl apply -f deployment/deployment-$CI_COMMIT_BRANCH.yml
-    - kubectl apply -f deployment/load-balancer.yml
+    - kubectl apply -f deployment/load-balancer-$CI_COMMIT_BRANCH.yml
   only:
     - staging
     - master
