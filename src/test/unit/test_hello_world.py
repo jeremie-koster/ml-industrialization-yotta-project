@@ -20,12 +20,15 @@ def test_clip_transformer():
     transformed_data = transformer.fit_transform(data)
     print(data)
     print(transformed_data)
-    assert transformed_data.ne(a_min / (a_max - a_min)).all()[0] & transformed_data.le(a_max / (a_max - a_min)).all()[0]
+    assert (
+        transformed_data.ne(a_min / (a_max - a_min)).all()[0]
+        & transformed_data.le(a_max / (a_max - a_min)).all()[0]
+    )
 
 
 def test_extract_category_transformer():
-    data = pd.DataFrame(np.array(['a'] * 5 + ['b'] * 4 + ['c'] * 3))
-    transformer = bf.ExtractCategoryTransformer('a')
+    data = pd.DataFrame(np.array(["a"] * 5 + ["b"] * 4 + ["c"] * 3))
+    transformer = bf.ExtractCategoryTransformer("a")
     transformed_data = transformer.fit_transform(data)
     assert transformed_data.isin([0, 1]).all()[0]
 
@@ -48,7 +51,9 @@ def test_age_transformer3():
     data = pd.DataFrame(40 + 5 * np.random.randn(10))
     transformer = bf.age_transformer()
     transformed_data = transformer.fit_transform(data)
-    assert np.isclose(np.mean(transformed_data[:, 2]), 0, 1e-5) & np.isclose(np.std(transformed_data[:, 2]), 1, 1e-5)
+    assert np.isclose(np.mean(transformed_data[:, 2]), 0, 1e-5) & np.isclose(
+        np.std(transformed_data[:, 2]), 1, 1e-5
+    )
 
 
 def test_logical_transformer():
@@ -66,12 +71,15 @@ def test_clip_transformer():
     transformed_data = transformer.fit_transform(data)
     print(data)
     print(transformed_data)
-    assert transformed_data.ne(a_min / (a_max - a_min)).all()[0] & transformed_data.le(a_max / (a_max - a_min)).all()[0]
+    assert (
+        transformed_data.ne(a_min / (a_max - a_min)).all()[0]
+        & transformed_data.le(a_max / (a_max - a_min)).all()[0]
+    )
 
 
 def test_extract_category_transformer():
-    data = pd.DataFrame(np.array(['a'] * 5 + ['b'] * 4 + ['c'] * 3))
-    transformer = bf.ExtractCategoryTransformer('a')
+    data = pd.DataFrame(np.array(["a"] * 5 + ["b"] * 4 + ["c"] * 3))
+    transformer = bf.ExtractCategoryTransformer("a")
     transformed_data = transformer.fit_transform(data)
     assert transformed_data.isin([0, 1]).all()[0]
 
@@ -94,7 +102,9 @@ def test_age_transformer3():
     data = pd.DataFrame(40 + 5 * np.random.randn(10))
     transformer = bf.age_transformer()
     transformed_data = transformer.fit_transform(data)
-    assert np.isclose(np.mean(transformed_data[:, 2]), 0, 1e-5) & np.isclose(np.std(transformed_data[:, 2]), 1, 1e-5)
+    assert np.isclose(np.mean(transformed_data[:, 2]), 0, 1e-5) & np.isclose(
+        np.std(transformed_data[:, 2]), 1, 1e-5
+    )
 
 
 def test_logical_transformer():
