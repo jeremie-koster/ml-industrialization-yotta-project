@@ -1,6 +1,6 @@
 apiVersion: apps/v1
 kind: Deployment
-metadata: 
+metadata:
   name: chaos-2-master
 spec:
   replicas: 2
@@ -17,11 +17,10 @@ spec:
           image: eu.gcr.io/yotta-san-ml3/chaos-2:master
           imagePullPolicy: Always
           volumeMounts:
-            - name: secret-vol
-              mountPath: "/secret"
+            - name: config-vol
+              mountPath: "/config"
               readOnly: True
       volumes:
-        - name: secret-vol
+        - name: config-vol
           secret:
-            secretName: chaos-secrets-2
-
+            secretName: chaos-apiconfig-2
