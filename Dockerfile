@@ -3,7 +3,7 @@ FROM python:3.8.1
 COPY . /src
 WORKDIR /src
 
-ENV YOTTA_ML3_CONFIGURATION_PATH=/secret/config.yml
+ENV API_CONFIG=/config/api-config.yml
 
 RUN apt-get update
 
