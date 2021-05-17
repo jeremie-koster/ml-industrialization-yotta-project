@@ -14,9 +14,6 @@ sentry_sdk.init(
 
 app = FastAPI()
 
-PORT = config["api"]["port"]
-HOST = config["api"]["host"]
-
 
 class Prediction(BaseModel):
     predictions: str
