@@ -1,4 +1,4 @@
-__all__ = ["config, api_config"]
+__all__ = ["config"]
 
 import os
 import yaml
