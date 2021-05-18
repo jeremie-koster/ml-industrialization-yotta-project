@@ -4,7 +4,7 @@ metadata:
   name: chaos-2-loadbalancer
 spec:
   selector:
-    app: chaos2-api
+    app: chaos2-api-staging
   ports:
     - protocol: TCP
       port: 5000
