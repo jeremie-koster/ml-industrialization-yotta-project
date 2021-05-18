@@ -6,11 +6,11 @@ spec:
   replicas: 2
   selector:
     matchLabels:
-      app: chaos2-api
+      app: chaos2-api-master
   template:
     metadata:
       labels:
-        app: chaos2-api
+        app: chaos2-api-master
     spec:
       containers:
         - name: chaos2
