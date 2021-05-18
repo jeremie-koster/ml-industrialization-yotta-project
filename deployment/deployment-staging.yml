@@ -22,5 +22,5 @@ spec:
               readOnly: True
       volumes:
         - name: config-vol
-          secret:
-            secretName: chaos-apiconfig-2
+          configMap:
+            name: chaos-apiconfig-2
