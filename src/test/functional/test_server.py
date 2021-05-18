@@ -28,34 +28,3 @@ def test_predict():
     response = client.get(f"/{endpoint}", json=data, headers=headers)
     results = response.json()
     assert results["predictions"] == "A souscrit"
-
-
-# def test_example1():
-#    endpoint = "example"
-#    url = f"http://{host}:{port}/{endpoint}"
-#    headers = {"Content-type": "application/json"}
-#
-#    data = {"question": 2}
-#
-#    response = requests.get(url=url, json=data, headers=headers)
-#    results = response.json()
-#    assert results["answer"] == data["question"]*2
-
-# def test_example2():
-#    endpoint = "example"
-#    url = f"http://{host}:{port}/{endpoint}"
-#    headers = {"Content-type": "application/json"}
-#    data = {"question": "a"}
-#    response = requests.get(url=url, json=data, headers=headers)
-#    results = response.json()
-#    assert results["answer"] == 0
-
-
-# def test_example3():
-#    endpoint = "example"
-#    url = f"http://{host}:{port}/{endpoint}"
-#    headers = {"Content-type": "application/json"}
-#    data = {"wrong_field": "a"}
-#    response = requests.get(url=url, json=data, headers=headers)
-#    results = response.json()
-#    assert results["answer"] == 0
