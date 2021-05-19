@@ -40,6 +40,20 @@ build-docker-image:
   - docker login -u _json_key -p "$(cat key.json)" $IMAGE_NAME
   - docker push $IMAGE_NAME
 
+retrain-model:
+  stage: retrain
+  image: python:3.8.1
+  variables:
+    BUCKET_NAME: chaos-2
+  script:
+    - echo "$GITLAB_IAM_PRIVATE_KEY" > key.json
+    - pip install -r requirements.txt
+    - pip install -e .
+    - gcloud auth activate-service-account --key-file=key.json
+    - gcloud config set project yotta-san-ml3
+    - gcloud config set compute/zone europe-west1-b
+    - python -m src.application.train --options --environment=$CI_COMMIT_BRANCH
+
 deployment:
   image: google/cloud-sdk:latest
   stage: deploy
@@ -48,7 +62,6 @@ deployment:
     - gcloud auth activate-service-account --key-file=key.json
     - gcloud config set project yotta-san-ml3
     - gcloud config set compute/zone europe-west1-b
-    - gcloud container clusters get-credentials chaos-cluster
     - kubectl apply -f deployment/deployment-$CI_COMMIT_BRANCH.yml
     - kubectl apply -f deployment/load-balancer-$CI_COMMIT_BRANCH.yml
   only:

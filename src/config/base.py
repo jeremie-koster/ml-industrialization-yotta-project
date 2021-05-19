@@ -84,7 +84,8 @@ ALL_CLIENT_DATA_TRANSLATION = {
 SEED = 21
 
 # Path to model saved
-SAVED_MODEL_PATH = os.path.join(MODELS_DIR, "ml_model.pkl")
+MODEL_NAME = "ml_model.pkl"
+SAVED_MODEL_PATH = os.path.join(MODELS_DIR, MODEL_NAME)
 
 # Models parameters grid
 LOGISTIC_REGRESSION_PARAM = {

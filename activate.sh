@@ -2,4 +2,5 @@
 echo "Virtualenv activated"
 
 export API_CONFIG="$(pwd)/src/config/api-config.yml"
-echo "Config file path variable set"
+export BUCKET_NAME="chaos-2"
+echo "Config file path and bucket name variables set"

@@ -10,12 +10,12 @@ def test_predict():
     headers = {"Content-Type": "application/json"}
     data = {
         "DATE": "2010-02-24",
-        "AGE": 0,
+        "AGE": 30,
         "JOB_TYPE": "Admin",
         "STATUS": "Marié",
         "EDUCATION": "Primaire",
         "HAS_DEFAULT": "No",
-        "BALANCE": 0,
+        "BALANCE": 100,
         "HAS_HOUSING_LOAN": "No",
         "HAS_PERSO_LOAN": "Yes",
         "CONTACT": "Portable",

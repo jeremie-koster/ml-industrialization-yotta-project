@@ -38,7 +38,7 @@ def prediction(input: dict):
     try:
         input_df = pd.DataFrame(input, index=[0])
         csv_path = "~/sample.csv"
-        input_df.to_csv(csv_path, index=False)
+        input_df.to_csv(csv_path, index=False, sep=";")
         result_subscription = prediction_pipeline(csv_path, run_type="api")
     except (KeyError, TypeError, ValueError) as error:
         DEFAULT_RESULT = "Error"

@@ -5,11 +5,14 @@
 
 import pickle
 from warnings import simplefilter
+import os
+import logging
 
 from pandas.core.common import SettingWithCopyWarning
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.model_selection import RandomizedSearchCV, train_test_split
 from sklearn.pipeline import Pipeline
+import click
 
 import src.config.base as base
 import src.config.column_names as col
@@ -20,16 +23,18 @@ from src.domain.cleaning import (
     impute_missing_eco_data,
 )
 from src.infrastructure.build_dataset import DataBuilderFactory, DataMerger
+from src.infrastructure.utils import dump_model_locally, upload_model
 
 # Ignorer les warnings pour améliorer la lisibilité
 simplefilter(action="ignore", category=FutureWarning)
 simplefilter(action="ignore", category=SettingWithCopyWarning)
 
 
+@click.command(help="Train the product subscription model")
 def main():
 
     # Builds datasets.
-    print("Building datasets...")
+    logging.info("Building datasets...")
     client_builder = DataBuilderFactory(
         base.TRAIN_CLIENT_DATA_PATH,
         base.config_client_data,
@@ -40,7 +45,7 @@ def main():
     eco_builder = DataBuilderFactory(base.TRAIN_ECO_DATA_PATH, base.config_eco_data)
     eco_data = eco_builder.preprocess_data().data
 
-    print("Preprocessing...")
+    logging.info("Preprocessing...")
     # Imputes NaN from the eco dataset.
     # This step is done outside the pipeline to avoid duplication of NaN while merging.
     eco_data = impute_missing_eco_data(eco_data)
@@ -50,7 +55,7 @@ def main():
     )
 
     # Merges client and eco datasets.
-    print("Merging the client and economic datasets together...")
+    logging.info("Merging the client and economic datasets together...")
     merged = DataMerger(client_data, eco_data, col.MERGER_FIELD)
     merged.merge_datasets()
     merged_data = merged.joined_datasets
@@ -68,7 +73,7 @@ def main():
     )
 
     # Splits train and test sets.
-    print("Splitting train and test...")
+    logging.info("Splitting train and test...")
     merged_data_y = merged_data_y.eq("Yes").astype(int)
     X_train, X_test, y_train, y_test = train_test_split(
         merged_data_X,
@@ -81,7 +86,7 @@ def main():
     pipeline.fit(X_train, y_train)
 
     # Initializes random search.
-    print("Initializing random search...")
+    logging.info("Initializing random search...")
     clf = RandomizedSearchCV(
         estimator=pipeline,
         param_distributions=base.RF_PARAM,
@@ -91,13 +96,12 @@ def main():
     )
 
     # Fits the model.
-    print("Fitting model...")
+    logging.info("Fitting model...")
     clf.fit(X_train, y_train)
 
-    # Saves model.
-    print("Saving model...")
-    with open(base.SAVED_MODEL_PATH, "wb") as file:
-        pickle.dump(clf.best_estimator_, file)
+    # Dump the model locally
+    logging.info("Dumping the model locally")
+    dump_model_locally(clf.best_estimator_, base.SAVED_MODEL_PATH)
 
 
 if __name__ == "__main__":

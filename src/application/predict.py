@@ -7,14 +7,19 @@ import pickle
 import logging
 from typing import Union
 from warnings import simplefilter
+import os
+import glob
+from click.exceptions import FileError
 
 import pandas as pd
 from pandas.core.common import SettingWithCopyWarning
+import click
 
 import src.config.base as base
 import src.config.column_names as col
 from src.domain.cleaning import correct_wrong_entries, impute_missing_eco_data
 from src.infrastructure.build_dataset import DataBuilderFactory, DataMerger
+from src.infrastructure.utils import download_blob
 
 # Ignorer les warnings pour améliorer la lisibilité
 simplefilter(action="ignore", category=FutureWarning)
@@ -35,6 +40,7 @@ def load_pipeline():
     return pipeline
 
 
+# @click.command(help="Make a prediction about whether will subscribe or not")
 def main(prediction_data_path=base.PREDICT_CLIENT_DATA_PATH, run_type: str = "normal"):
 
     # Builds datasets.
