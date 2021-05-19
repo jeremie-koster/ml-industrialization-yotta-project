@@ -28,7 +28,6 @@ unit-test:
     - pip install -e .
     - pytest src/test/unit
   only:
-    - develop
     - staging
 
 functional-test:
@@ -39,7 +38,6 @@ functional-test:
     - pip install -e .
     - pytest src/test/functional
   only:
-    - develop
     - staging
 
 build-docker-image:
