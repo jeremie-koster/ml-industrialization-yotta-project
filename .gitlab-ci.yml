@@ -29,6 +29,7 @@ unit-test:
     - pytest src/test/unit
   only:
     - staging
+    - develop
 
 functional-test:
   image: python:3.8.1
@@ -39,6 +40,7 @@ functional-test:
     - pytest src/test/functional
   only:
     - staging
+    - develop
 
 build-docker-image:
   stage: build
