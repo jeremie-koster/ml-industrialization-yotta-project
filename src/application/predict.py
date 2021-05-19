@@ -4,6 +4,7 @@
 """
 
 import pickle
+import logging
 from typing import Union
 from warnings import simplefilter
 
@@ -24,12 +25,12 @@ def load_pipeline():
     """Loads model from pickle file."""
 
     try:
-        print("Loading the fitted pipeline...")
+        logging.info("Loading the fitted pipeline...")
         with open(base.SAVED_MODEL_PATH, "rb") as model_file:
             pipeline = pickle.load(model_file)
-        print("Loading completed successfully...")
+        logging.info("Loading completed successfully...")
     except FileNotFoundError:
-        print("Model file has not been found.")
+        logging.error("Model file has not been found.")
         raise
     return pipeline
 
@@ -37,7 +38,7 @@ def load_pipeline():
 def main(prediction_data_path=base.PREDICT_CLIENT_DATA_PATH, run_type: str = "normal"):
 
     # Builds datasets.
-    print("Building datasets...")
+    logging.info("Building datasets...")
     client_builder = DataBuilderFactory(
         prediction_data_path, base.config_client_data, base.ALL_CLIENT_DATA_TRANSLATION
     )
@@ -46,7 +47,7 @@ def main(prediction_data_path=base.PREDICT_CLIENT_DATA_PATH, run_type: str = "no
     eco_builder = DataBuilderFactory(base.PREDICT_ECO_DATA_PATH, base.config_eco_data)
     eco_data = eco_builder.preprocess_data().data
 
-    print("Preprocessing...")
+    logging.info("Preprocessing...")
     # Imputes NaN from the eco dataset.
     # This step is done outside the pipeline to avoid duplication of NaN while merging.
     eco_data = impute_missing_eco_data(eco_data)
@@ -56,7 +57,7 @@ def main(prediction_data_path=base.PREDICT_CLIENT_DATA_PATH, run_type: str = "no
     )
 
     # Merges client and eco datasets.
-    print("Merging client and eco datasets...")
+    logging.info("Merging client and eco datasets...")
     merged = DataMerger(client_data, eco_data, col.MERGER_FIELD)
     merged.merge_datasets()
     X_pred = merged.joined_datasets
