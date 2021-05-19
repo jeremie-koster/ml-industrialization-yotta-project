@@ -3,5 +3,11 @@ run:
 
 commit:
 	pytest src/test/unit
+	pytest src/test/functional
 	pre-commit run
 	gitmoji -c
+
+install:
+	pip install --upgrade pip
+	pip install -r requirements.txt
+	pip install -e .
