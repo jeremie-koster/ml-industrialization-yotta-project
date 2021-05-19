@@ -15,8 +15,8 @@ cml:
   script:
     - pip install -r requirements.txt
     - python src/application/train.py
-    - cat metrics.txt >> report.md
-    - cml-publish confusion_matrix.png --md >> report.md
+    - cat src/application/metrics.txt >> report.md
+    - cml-publish src/application.confusion_matrix.png --md >> report.md
     - cml-send-comment report.md
 
 unit-test:
