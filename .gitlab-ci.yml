@@ -14,6 +14,7 @@ cml:
   image: dvcorg/cml-py3:latest
   script:
     - pip install -r requirements.txt
+    - pip install -e .
     - python src/application/train.py
     - cat src/application/metrics.txt >> report.md
     - cml-publish src/application.confusion_matrix.png --md >> report.md
