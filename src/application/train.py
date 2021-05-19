@@ -5,9 +5,10 @@
 
 import pickle
 from warnings import simplefilter
-
+import matplotlib.pyplot as plt
 from pandas.core.common import SettingWithCopyWarning
 from sklearn.ensemble import RandomForestClassifier
+from sklearn.metrics import plot_confusion_matrix
 from sklearn.model_selection import RandomizedSearchCV, train_test_split
 from sklearn.pipeline import Pipeline
 
@@ -93,6 +94,13 @@ def main():
     # Fits the model.
     print("Fitting model...")
     clf.fit(X_train, y_train)
+    
+    accuracy = clf.score(X_test, y_test)
+    with open("metrics.txt", "w") as outfile:
+        outfile.write("Accuracy: " + str(accuracy) + "\n")
+
+    disp = plot_confusion_matrix(clf, X_test, y_test, normalize='true', cmap=plt.cm.Blues)
+    plt.savefig('confusion_matrix.png')
 
     # Saves model.
     print("Saving model...")
